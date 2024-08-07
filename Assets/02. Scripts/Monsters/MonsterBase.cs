@@ -17,6 +17,11 @@ public abstract class MonsterBase : MonoBehaviour, IHitable
         Status = LoadData();
     }
 
+    private void FixedUpdate()
+    {
+        _rigidbody.MovePosition(transform.position + Status.Speed * Time.fixedDeltaTime * Vector3.left);
+    }
+
     public abstract MonsterStatus LoadData();
 
     public Vector3 GetPosition()

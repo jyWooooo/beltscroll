@@ -14,6 +14,8 @@ public class DB_MonsterData : ScriptableObject
 
     public MonsterStatus Get(string name)
     {
+        if (_dict == null) 
+            Awake();
         return _dict[name];
     }
 
