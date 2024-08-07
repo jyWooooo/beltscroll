@@ -17,7 +17,7 @@ public static class CSVReader
         string[] lines;
 
         string source;
-        using (StreamReader sr = new(csvText.text))
+        using (StringReader sr = new(csvText.text))
             source = sr.ReadToEnd();
         lines = Regex.Split(source, LINE_SPLIT_REGEX);
 
@@ -27,7 +27,7 @@ public static class CSVReader
         for (var i = 1; i < lines.Length; i++)
         {
             var values = Regex.Split(lines[i], SPLIT_REGEX);
-            if (values.Length == 0 || values[0] == "") continue;
+            if (values.Length == 0 || string.IsNullOrEmpty(values[0])) continue;
 
             var entry = new Dictionary<string, object>();
             for (var j = 0; j < header.Length && j < values.Length; j++)

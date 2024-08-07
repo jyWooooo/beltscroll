@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterStatus : IConvertableCSVData
+[System.Serializable]
+public class MonsterStatus
 {
     public enum GradeType
     {
@@ -12,13 +13,16 @@ public class MonsterStatus : IConvertableCSVData
         Hero,
     }
 
-    public string Name { get; private set; }
-    public GradeType Grade { get; private set; }
-    public float Speed { get; private set; }
-    public float Health { get; private set; }
+    [field: SerializeField] public string Name { get; private set; }
+    [field: SerializeField] public GradeType Grade { get; private set; }
+    [field: SerializeField] public float Speed { get; private set; }
+    [field: SerializeField] public float Health { get; private set; }
 
-    public Object Convert(List<Dictionary<string, object>> data)
+    public MonsterStatus(string name, GradeType grade, float speed, float health)
     {
-        return null;
+        Name = name;
+        Grade = grade;
+        Speed = speed;
+        Health = health;
     }
 }

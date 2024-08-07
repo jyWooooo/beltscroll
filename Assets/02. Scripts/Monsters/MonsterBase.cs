@@ -12,13 +12,12 @@ public abstract class MonsterBase : MonoBehaviour, IHitable
 
     private void Awake()
     {
+        Debug.Log(GetType().Name + "Awake");
         _rigidbody = GetComponent<Rigidbody2D>();
+        Status = LoadData();
     }
 
-    public void Initialize()
-    {
-        //TODO: CSV파일 읽어와서 Status 세팅
-    }
+    public abstract MonsterStatus LoadData();
 
     public Vector3 GetPosition()
     {
