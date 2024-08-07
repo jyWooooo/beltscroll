@@ -4,14 +4,20 @@ using UnityEngine;
 public abstract class MonsterBase : MonoBehaviour, IHitable
 {
     private float _currentHP;
+    protected Rigidbody2D _rigidbody;
 
     public MonsterStatus Status { get; private set; }
 
     public event Action OnHit;
 
+    private void Awake()
+    {
+        _rigidbody = GetComponent<Rigidbody2D>();
+    }
+
     public void Initialize()
     {
-        _currentHP = Status.Health;
+        //TODO: CSV파일 읽어와서 Status 세팅
     }
 
     public Vector3 GetPosition()

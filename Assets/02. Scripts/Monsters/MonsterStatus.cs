@@ -1,4 +1,7 @@
-public class MonsterStatus
+using System.Collections.Generic;
+using UnityEngine;
+
+public class MonsterStatus : IConvertableCSVData
 {
     public enum GradeType
     {
@@ -13,4 +16,9 @@ public class MonsterStatus
     public GradeType Grade { get; private set; }
     public float Speed { get; private set; }
     public float Health { get; private set; }
+
+    public Object Convert(List<Dictionary<string, object>> data)
+    {
+        return null;
+    }
 }

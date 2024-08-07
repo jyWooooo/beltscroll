@@ -9,11 +9,13 @@ public class GameManager : Singleton<GameManager>
     private DataManager _dataManager;
     private UIManager _uiManager;
     private SceneManager _sceneManager;
+    private MonsterManager _monsterManager;
 
     public static ResourceManager ResourceManager => Instance._resourceManager;
     public static DataManager DataManager => Instance._dataManager;
     public static UIManager UIManager => Instance._uiManager;
     public static SceneManager SceneManager => Instance._sceneManager;
+    public static MonsterManager MonsterManager => Instance._monsterManager;
 
     public override bool Initialize()
     {
@@ -31,10 +33,11 @@ public class GameManager : Singleton<GameManager>
         _dataManager = new();
         _uiManager = new();
         _sceneManager = new();
+        _monsterManager = new();
     }
 
     private void InitializeManagers()
     {
-
+        _monsterManager.Initialize();
     }
 }

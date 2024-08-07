@@ -14,25 +14,21 @@ public class BowAttackStrategy : IAttackStrategy
         _arrowPrefab = GameManager.ResourceManager.GetCache<GameObject>("ArrowProjectile.prefab");
     }
 
-    public bool TryAttack()
+    public bool SearchTarget()
     {
-        SearchTarget();
-        if (_target == null)
+        var col = Physics2D.OverlapCircle(_player.transform.position, _player.Status.AttackRange, 1 << 7);
+        if (col == null)
+        {
+            _target = null;
             return false;
-        Shot();
+        }
+        _target = col.GetComponent<IHitable>();
         return true;
     }
 
-    private void SearchTarget() 
+    public void Attack()
     {
-        var col = Physics2D.OverlapCircle(_player.transform.position, _player.Status.AttackRange);
-        if (col == null) 
-            return;
-        _target = col.GetComponent<IHitable>();
-    }
-
-    public void Shot()
-    {
-        Object.Instantiate(_arrowPrefab, _player.transform.position, Quaternion.identity);
+        Object.Instantiate(_arrowPrefab, _player.AttackTrigger.transform.position, Quaternion.identity);
+        OnAttacked?.Invoke();
     }
 }

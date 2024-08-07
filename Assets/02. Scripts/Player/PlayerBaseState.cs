@@ -14,4 +14,9 @@ public class PlayerBaseState : IState
     public virtual void FixedUpdate() { }
     public virtual void HandleInput() { }
     public virtual void Update() { }
+
+    public float GetAnimStateTime()
+    {
+        return _player.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+    }
 }
