@@ -2359,7 +2359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 193dbcfa2e91a1a4c837514b1be90f3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _distantViewValue: 1
+  _distantViewValue: 2
   _useRecycle: 1
   _recycleThreshold: -18
 --- !u!1 &2127297036154645824
@@ -6497,7 +6497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 193dbcfa2e91a1a4c837514b1be90f3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _distantViewValue: 1
+  _distantViewValue: 2
   _useRecycle: 1
   _recycleThreshold: -18
 --- !u!1 &7483601801510325392

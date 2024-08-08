@@ -21,6 +21,7 @@ public class MainScene : SceneBase
                 player.ChangeCharacter(GameManager.DataManager.GetData<DB_PlayerCharacter>("Archer"));
                 player.transform.position = GameManager.DataManager.GetData<DB_WorldSettings>("WorldSettings").PlayerSpawnPosition;
                 GameManager.MonsterManager.SpawnMonster();
+                GameManager.UIManager.ShowSceneUI<UI_MonsterInfo>();
             }
         });
     }

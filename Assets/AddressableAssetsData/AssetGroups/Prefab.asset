@@ -65,6 +65,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - MainScene
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6057dd77be84fee4f8c7b298b0ca1032
+    m_Address: UI_MonsterInfo.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MainScene
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: ceee6aff5db9ca84d80d2b82da45dab5, type: 2}
   m_SchemaSet:
