@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class MonsterHitState : MonsterBaseState
 {
+    private AnimationCurve _knockbackForceCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
+
     public MonsterHitState(MonsterBase monster, MonsterFSM fsm) : base(monster, fsm)
     {
     }
@@ -32,6 +34,6 @@ public class MonsterHitState : MonsterBaseState
 
     public float CalculateKnockbackForce(float t)
     {
-        return Mathf.Lerp(10f, 0f, t);
+        return _knockbackForceCurve.Evaluate(t) * 10f;
     }
 }
