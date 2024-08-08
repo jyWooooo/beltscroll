@@ -4,22 +4,34 @@ using UnityEngine;
 public abstract class MonsterBase : MonoBehaviour, IHitable
 {
     private float _currentHP;
-    protected Rigidbody2D _rigidbody;
+    private Collider2D _collider;
 
+    public Rigidbody2D Rigidbody { get; private set; }
+    public Animator Animator { get; private set; }
+    public MonsterFSM MonsterFSM { get; private set; }
     public MonsterStatus Status { get; private set; }
 
     public event Action OnHit;
+    public event Action OnDied;
 
     private void Awake()
     {
-        Debug.Log(GetType().Name + "Awake");
-        _rigidbody = GetComponent<Rigidbody2D>();
+        _collider = GetComponent<Collider2D>();
+        Rigidbody = GetComponent<Rigidbody2D>();
+        Animator = GetComponentInChildren<Animator>();
+        MonsterFSM = new(this);
         Status = LoadData();
+        _currentHP = Status.Health;
+    }
+
+    private void Update()
+    {
+        MonsterFSM.Update();
     }
 
     private void FixedUpdate()
     {
-        _rigidbody.MovePosition(transform.position + Status.Speed * Time.fixedDeltaTime * Vector3.left);
+        MonsterFSM.FixedUpdate();
     }
 
     public abstract MonsterStatus LoadData();
@@ -31,12 +43,12 @@ public abstract class MonsterBase : MonoBehaviour, IHitable
 
     public virtual void Die()
     {
-        Destroy(gameObject);
+        _collider.enabled = false;
+        OnDied?.Invoke();
     }
 
     public void Hit(float damage)
     {
-        Debug.Log(_currentHP);
         OnHit?.Invoke();
         _currentHP -= damage;
         if (_currentHP <= 0f)

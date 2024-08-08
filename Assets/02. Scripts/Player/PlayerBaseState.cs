@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class PlayerBaseState : IState
 {
     protected PlayerFSM _fsm;
@@ -9,8 +11,18 @@ public class PlayerBaseState : IState
         _player = player;
     }
 
-    public virtual void Enter() { }
-    public virtual void Exit() { }
+    public virtual void Enter() 
+    {
+        GameManager.StageManager.OnNextStageMoveStarted += OnNextStageMoveStart;
+        GameManager.StageManager.OnNextStageMoveFinished += OnNextStageMoveFinish;
+    }
+
+    public virtual void Exit()
+    {
+        GameManager.StageManager.OnNextStageMoveStarted -= OnNextStageMoveStart;
+        GameManager.StageManager.OnNextStageMoveFinished -= OnNextStageMoveFinish;
+    }
+
     public virtual void FixedUpdate() { }
     public virtual void HandleInput() { }
     public virtual void Update() { }
@@ -18,5 +30,15 @@ public class PlayerBaseState : IState
     public float GetAnimStateTime()
     {
         return _player.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+    }
+
+    public void OnNextStageMoveStart()
+    {
+        _fsm.ChangeState(_fsm.WalkState);
+    }
+
+    public void OnNextStageMoveFinish()
+    {
+        _fsm.ChangeState(_fsm.IdleState);
     }
 }

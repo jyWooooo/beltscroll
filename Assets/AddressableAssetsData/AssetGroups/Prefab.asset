@@ -41,6 +41,30 @@ MonoBehaviour:
     m_SerializedLabels:
     - MainScene
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 72f449cf1fde2684289c795c33934701
+    m_Address: MonsterWizard.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MainScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8678b4dea6f04d640bd976ad7b8d1447
+    m_Address: MonsterOrcrider.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MainScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e22fe4ddd619fbb40827c21e8e0cdffa
+    m_Address: MonsterEliteOrc.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MainScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 83a4dbe3251f80446aaa478ac55e1f03
+    m_Address: MonsterWerebear.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MainScene
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: ceee6aff5db9ca84d80d2b82da45dab5, type: 2}
   m_SchemaSet:

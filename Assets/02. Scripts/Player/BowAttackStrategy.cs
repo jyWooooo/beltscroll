@@ -28,7 +28,8 @@ public class BowAttackStrategy : IAttackStrategy
 
     public void Attack()
     {
-        Object.Instantiate(_arrowPrefab, _player.AttackTrigger.transform.position, Quaternion.identity);
+        var arrow = Object.Instantiate(_arrowPrefab, _player.AttackTrigger.transform.position, Quaternion.identity).GetComponent<ArrowProjectile>();
+        arrow.Set(_player.Status.AttackDamage);
         OnAttacked?.Invoke();
     }
 }

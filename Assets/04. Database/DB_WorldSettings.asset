@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <PlayerSpawnPosition>k__BackingField: {x: -5, y: -2.15, z: 0}
   <MonsterSpawnPosition>k__BackingField: {x: 10, y: -2.15, z: 0}
+  <MoveNextStageAnimateTime>k__BackingField: 1

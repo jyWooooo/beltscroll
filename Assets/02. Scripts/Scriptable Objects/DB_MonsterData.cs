@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class DB_MonsterData : ScriptableObject
@@ -12,11 +13,16 @@ public class DB_MonsterData : ScriptableObject
         MonsterStatuses = data;
     }
 
-    public MonsterStatus Get(string name)
+    public MonsterStatus GetMonsterData(string name)
     {
         if (_dict == null) 
             Awake();
         return _dict[name];
+    }
+
+    public string[] GetMonsterNames()
+    {
+        return MonsterStatuses.Select(x => x.Name).ToArray();
     }
 
     private void Awake()

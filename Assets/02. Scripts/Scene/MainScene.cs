@@ -15,11 +15,12 @@ public class MainScene : SceneBase
             {
                 Debug.Log("MainScene Resource Load Complete");
 
-                Instantiate(GameManager.ResourceManager.GetCache<GameObject>("Map.prefab"));
+                GameManager.StageManager.CreateStage();
+                GameManager.StageManager.OnNextStageMoveFinished += () => GameManager.MonsterManager.SpawnMonster();
                 var player = Instantiate(GameManager.ResourceManager.GetCache<GameObject>("PlayerCharacter.prefab")).GetComponent<PlayerCharacter>();
                 player.ChangeCharacter(GameManager.DataManager.GetData<DB_PlayerCharacter>("Archer"));
                 player.transform.position = GameManager.DataManager.GetData<DB_WorldSettings>("WorldSettings").PlayerSpawnPosition;
-                GameManager.MonsterManager.SpawnMonster("Skeleton");
+                GameManager.MonsterManager.SpawnMonster();
             }
         });
     }

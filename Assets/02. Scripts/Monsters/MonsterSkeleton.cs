@@ -4,6 +4,6 @@ public class MonsterSkeleton : MonsterBase
 {
     public override MonsterStatus LoadData()
     {
-        return GameManager.DataManager.GetData<DB_MonsterData>("MonsterData").Get("Skeleton");
+        return GameManager.MonsterManager.MonsterData.GetMonsterData("Skeleton");
     }
 }

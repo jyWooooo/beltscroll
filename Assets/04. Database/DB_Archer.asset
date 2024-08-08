@@ -16,6 +16,6 @@ MonoBehaviour:
   <PlayerStatus>k__BackingField:
     <AttackDamage>k__BackingField: 100
     <AttackInterval>k__BackingField: 1
-    <AttackRange>k__BackingField: 5
+    <AttackRange>k__BackingField: 10
   <Controller>k__BackingField: {fileID: 9100000, guid: 43037c1bdb3019940b4ba0eb8dbaf4a4, type: 2}
   <AttackStrategy>k__BackingField: 0

@@ -10,13 +10,14 @@ public class PlayerAttackState : PlayerBaseState
 
     public override void Enter()
     {
+        base.Enter();
         _isFired = false;
         _player.Animator.SetBool(_fsm.AnimatorAttackParameter, true);
     }
 
     public override void Update()
     {
-        if (!_isFired && GetAnimStateTime() > 0.5f)
+        if (!_isFired && GetAnimStateTime() > 0.67f)
         {
             _player.AttackStrategy.Attack();
             _isFired = true;
@@ -27,6 +28,7 @@ public class PlayerAttackState : PlayerBaseState
 
     public override void Exit()
     {
+        base.Exit();
         _player.Animator.SetBool(_fsm.AnimatorAttackParameter, false);
     }
 }
