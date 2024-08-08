@@ -5,7 +5,6 @@ public class MonsterSelector
 {
     private MonsterBase _selectedMonster;
 
-    public event Action<MonsterBase> OnSelectedMonsterChanged;
     public event Action<MonsterBase> OnSelectedMonsterClicked;
 
     public void Update()
@@ -36,7 +35,6 @@ public class MonsterSelector
 
         select.SpriteRenderer.color = Color.yellow;
         _selectedMonster = select;
-        OnSelectedMonsterChanged?.Invoke(select);
     }
 
     private void DeselectMonster()
@@ -46,6 +44,5 @@ public class MonsterSelector
 
         _selectedMonster.SpriteRenderer.color = Color.white;
         _selectedMonster = null;
-        OnSelectedMonsterChanged?.Invoke(null);
     }
 }
