@@ -6,6 +6,7 @@ using UnityEngine;
 public class FirebaseDBManager
 {
     private DatabaseReference _dbRef;
+    private bool _isConnected = false;
 
     public void Initialize()
     {
@@ -28,6 +29,7 @@ public class FirebaseDBManager
             if (ping.isDone)
             {
                 Debug.Log("Network Connect : TRUE");
+                _isConnected = true;
                 Read(completed, faulted);
                 yield break;
             }
@@ -44,6 +46,9 @@ public class FirebaseDBManager
 
     private void Read(Action<int> completed = null, Action faulted = null)
     {
+        if (!_isConnected)
+            return;
+
         string id = GameManager.DataManager.UserID.ToString();
         _dbRef.Child(id).GetValueAsync().ContinueWith(task =>
         {
@@ -69,6 +74,9 @@ public class FirebaseDBManager
 
     public void Write()
     {
+        if (!_isConnected)
+            return;
+
         string id = GameManager.DataManager.UserID.ToString();
         _dbRef.Child(id).SetValueAsync(GameManager.StageManager.StageCnt);
     }

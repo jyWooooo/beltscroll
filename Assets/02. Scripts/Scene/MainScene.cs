@@ -5,41 +5,42 @@ using UnityEngine;
 public class MainScene : SceneBase
 {
     [SerializeField] private UI_Loading _uiLoading;
+    private bool _isFirebaseDBLoaded = false;
+    private bool _isMainSceneResourcesLoaded = false;
 
     public override void LoadScene()
     {
-        ReadFirebaseDB(() =>
-        {
-            LoadResources(() =>
-            {
-                StartGame();
-            });
-        });
+        ReadFirebaseDB(() => { _isFirebaseDBLoaded = true; });
+        LoadResources(() => { _isMainSceneResourcesLoaded = true; });
+        StartCoroutine(StartGame());
     }
 
     private void ReadFirebaseDB(Action callback)
     {
-        _uiLoading.SetMessage("Checking Network Connection");
+        _uiLoading.SetMessage("Checking Network Connection", 0);
         GameManager.FirebaseDBManager.TryRead((result) =>
         {
             Debug.Log($"Firebase Database Read Success. Value : {result}");
             GameManager.StageManager.SetStageCount(result - 1);
+            _uiLoading.RemoveMessage("Checking Network Connection");
             callback?.Invoke();
         }, () =>
         {
             Debug.Log("Firebase Database Read Fail");
+            _uiLoading.RemoveMessage("Checking Network Connection");
             callback?.Invoke();
         });
     }
 
     private void LoadResources(Action callback)
     {
-        _uiLoading.SetMessage("Loading Resources");
+        _uiLoading.SetMessage("Loading Resources", 1);
         GameManager.ResourceManager.LoadAllAsync<UnityEngine.Object>("MainScene", (key, cnt, total) =>
         {
             if (cnt == total)
             {
                 Debug.Log("MainScene Resources Load Complete");
+                _uiLoading.RemoveMessage("Loading Resources");
                 callback?.Invoke();
             }
         });
@@ -66,8 +67,11 @@ public class MainScene : SceneBase
         GameManager.UIManager.ShowSceneUI<UI_MainScene>();
     }
 
-    private void StartGame()
+    private IEnumerator StartGame()
     {
+        while (!(_isFirebaseDBLoaded && _isMainSceneResourcesLoaded))
+            yield return null;
+
         InitializeStage();
         SpawnPlayer();
         CreateUI();
