@@ -1,17 +1,23 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Firebase.Database;
 
 public class DataManager
 {
-    public bool IsDone { get; private set; } = false;
-
     private Dictionary<string, ScriptableObject> _db = new();
+    private DatabaseReference _firebaseDBRef;
+    private UserGUIDManager _userGUIDManager = new();
+
+    public bool IsDone { get; private set; } = false;
+    public Guid UserID => _userGUIDManager.GetUserID();
 
     public event Action OnDBLoaded;
 
     public void DBLoad(Action<string, int, int> callback = null)
     {
+        _firebaseDBRef = FirebaseDatabase.DefaultInstance.RootReference;
+
         callback += LoadCompleteCallback;
         GameManager.ResourceManager.LoadAllAsync<UnityEngine.Object>("DB", callback);
     }

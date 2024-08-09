@@ -12,7 +12,7 @@ public class UI_Base : MonoBehaviour
     private Dictionary<Type, UnityEngine.Object[]> _objects = new();
     private bool _isInitialized = false;
 
-    private void Start()
+    private void Awake()
     {
         Initialize();
     }

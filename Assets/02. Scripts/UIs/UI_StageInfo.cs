@@ -20,7 +20,7 @@ public class UI_StageInfo : UI_Scene
         return true;
     }
 
-    private void RefreshStageCnt(int stageCnt)
+    public void RefreshStageCnt(int stageCnt)
     {
         _stageCnt.text = stageCnt.ToString();
     }

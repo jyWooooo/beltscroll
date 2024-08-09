@@ -1,3 +1,5 @@
+using Firebase.Database;
+using System.IO;
 using UnityEngine;
 
 public class MainScene : SceneBase
@@ -19,6 +21,7 @@ public class MainScene : SceneBase
                 SpawnPlayer();
                 CreateUI();
                 GameManager.StageManager.MoveNextStage();
+                Debug.Log(GameManager.DataManager.UserID);
             }
         });
     }
@@ -40,8 +43,7 @@ public class MainScene : SceneBase
 
     private void CreateUI()
     {
-        GameManager.UIManager.ShowSceneUI<UI_MonsterInfo>();
-        GameManager.UIManager.ShowSceneUI<UI_StageInfo>();
+        GameManager.UIManager.ShowSceneUI<UI_MainScene>();
     }
 
     public override void UnloadScene()

@@ -15,7 +15,6 @@ public class StageManager
     public void Initialize()
     {
         _moveNextStageAnimateTime = GameManager.DataManager.GetData<DB_WorldSettings>("WorldSettings").MoveNextStageAnimateTime;
-        _stageCnt = -1;
     }
 
     public void Clear()

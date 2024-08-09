@@ -25,7 +25,7 @@ public class MonsterManager
 
     public GameObject SpawnMonster(int stageCnt)
     {
-        var monsterName = GetNextMonsterName(stageCnt);
+        var monsterName = GetNextMonsterName(stageCnt - 1);
         monsterName = monsterName.Replace(" ", "");
         var prefab = GameManager.ResourceManager.GetCache<GameObject>($"Monster{monsterName}.prefab");
         CurrentMonster = Object.Instantiate(prefab, _spawnPosition, Quaternion.identity).GetComponent<MonsterBase>();

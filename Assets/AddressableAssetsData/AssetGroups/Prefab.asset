@@ -65,14 +65,8 @@ MonoBehaviour:
     m_SerializedLabels:
     - MainScene
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6057dd77be84fee4f8c7b298b0ca1032
-    m_Address: UI_MonsterInfo.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - MainScene
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 42101a0381fffb946a2dd6277fc8b54f
-    m_Address: UI_StageInfo.prefab
+  - m_GUID: 840abc574c6f60d4ca0574ea755cbfad
+    m_Address: UI_MainScene.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - MainScene
