@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class MonsterSelector
+public class MonsterSelector : MonoBehaviour
 {
     private MonsterBase _selectedMonster;
 

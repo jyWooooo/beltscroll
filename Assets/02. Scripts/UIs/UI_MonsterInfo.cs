@@ -23,11 +23,23 @@ public class UI_MonsterInfo : UI_Scene
     private TextMeshProUGUI _health;
     private Image _portrait;
     private MonsterSelector _selector;
+    private CanvasGroup _canvasGroup;
 
     public override bool Initialize()
     {
         if (!base.Initialize()) return false;
 
+        BindElements();
+        _selector = GetComponent<MonsterSelector>();
+        _selector.OnSelectedMonsterClicked += SetMonsterInfo;
+        _canvasGroup = GetComponent<CanvasGroup>();
+        _canvasGroup.alpha = 0f;
+
+        return true;
+    }
+
+    private void BindElements()
+    {
         BindText(typeof(Texts));
         BindImage(typeof(Images));
         _name = GetText((int)Texts.textName);
@@ -35,22 +47,17 @@ public class UI_MonsterInfo : UI_Scene
         _speed = GetText((int)Texts.textSpeed);
         _health = GetText((int)Texts.textHealth);
         _portrait = GetImage((int)Images.imgPortrait);
-        _selector = GameManager.MonsterSelector;
-        _selector.OnSelectedMonsterClicked += SetMonsterInfo;
-        gameObject.SetActive(false);
-
-        return true;
     }
 
     private void SetMonsterInfo(MonsterBase monster)
     {
         if (monster == null)
         {
-            gameObject.SetActive(false);
+            _canvasGroup.alpha = 0f;
             return;
         }
 
-        gameObject.SetActive(true);
+        _canvasGroup.alpha = 1f;
         _name.text = monster.Status.Name;
         _grade.text = monster.Status.Grade.ToString();
         _speed.text = monster.Status.Speed.ToString();
