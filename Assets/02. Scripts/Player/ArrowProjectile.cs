@@ -3,6 +3,7 @@ using UnityEngine;
 public class ArrowProjectile : MonoBehaviour
 {
     [SerializeField] private float _speed;
+    [SerializeField] private float _lifeTime;
     private Rigidbody2D _rigidbody;
     private float _damage;
 
@@ -19,7 +20,12 @@ public class ArrowProjectile : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _rigidbody.MovePosition(transform.position + _speed * Time.fixedDeltaTime* transform.right);
+        if (_lifeTime > 0f)
+            _lifeTime -= Time.fixedDeltaTime;
+        else
+            Destroy(gameObject);
+
+        _rigidbody.MovePosition(transform.position + _speed * Time.fixedDeltaTime * transform.right);
     }
 
     private void OnTriggerEnter2D(Collider2D col)

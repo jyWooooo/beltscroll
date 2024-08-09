@@ -32,12 +32,12 @@ public class PlayerBaseState : IState
         return _player.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
     }
 
-    public void OnNextStageMoveStart()
+    public void OnNextStageMoveStart(int _)
     {
         _fsm.ChangeState(_fsm.WalkState);
     }
 
-    public void OnNextStageMoveFinish()
+    public void OnNextStageMoveFinish(int _)
     {
         _fsm.ChangeState(_fsm.IdleState);
     }

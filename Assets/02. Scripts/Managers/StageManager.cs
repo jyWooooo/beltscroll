@@ -7,13 +7,24 @@ public class StageManager
 {
     private float _moveNextStageAnimateTime;
     private HashSet<Stage> _stages;
+    private int _stageCnt;
 
-    public event System.Action OnNextStageMoveStarted;
-    public event System.Action OnNextStageMoveFinished;
+    public event System.Action<int> OnNextStageMoveStarted;
+    public event System.Action<int> OnNextStageMoveFinished;
 
     public void Initialize()
     {
         _moveNextStageAnimateTime = GameManager.DataManager.GetData<DB_WorldSettings>("WorldSettings").MoveNextStageAnimateTime;
+        _stageCnt = -1;
+    }
+
+    public void Clear()
+    {
+        foreach (var d in OnNextStageMoveStarted.GetInvocationList())
+            OnNextStageMoveStarted -= (System.Action<int>)d;
+
+        foreach (var d in OnNextStageMoveFinished.GetInvocationList())
+            OnNextStageMoveFinished -= (System.Action<int>)d;
     }
 
     public void CreateStage()
@@ -23,7 +34,8 @@ public class StageManager
 
     public void MoveNextStage()
     {
-        OnNextStageMoveStarted?.Invoke();
+        _stageCnt++;
+        OnNextStageMoveStarted?.Invoke(_stageCnt);
         GameManager.Instance.StartCoroutine(AnimateMoveNextStage());
     }
 
@@ -46,6 +58,6 @@ public class StageManager
 
             yield return null;
         }
-        OnNextStageMoveFinished?.Invoke();
+        OnNextStageMoveFinished?.Invoke(_stageCnt);
     }
 }

@@ -3,7 +3,6 @@ using UnityEngine;
 public class MonsterManager
 {
     private Vector3 _spawnPosition;
-    private int _spawnCount;
     private string[] _monsterNames;
 
     public DB_MonsterData MonsterData { get; private set; }
@@ -18,22 +17,25 @@ public class MonsterManager
         _monsterNames = MonsterData.GetMonsterNames();
     }
 
-    public GameObject SpawnMonster()
+    public void Clear()
     {
-        var monsterName = GetNextMonsterName();
+        foreach (var d in OnSpawned.GetInvocationList())
+            OnSpawned -= (System.Action<MonsterBase>)d;
+    }
+
+    public GameObject SpawnMonster(int stageCnt)
+    {
+        var monsterName = GetNextMonsterName(stageCnt);
         monsterName = monsterName.Replace(" ", "");
         var prefab = GameManager.ResourceManager.GetCache<GameObject>($"Monster{monsterName}.prefab");
         CurrentMonster = Object.Instantiate(prefab, _spawnPosition, Quaternion.identity).GetComponent<MonsterBase>();
         CurrentMonster.OnDied += () => CurrentMonster = null;
-        CurrentMonster.OnDied += () => GameManager.StageManager.MoveNextStage();
-        GameManager.StageManager.AddStage(CurrentMonster.GetComponent<Stage>());
         OnSpawned?.Invoke(CurrentMonster);
-        _spawnCount++;
         return CurrentMonster.gameObject;
     }
 
-    public string GetNextMonsterName()
+    public string GetNextMonsterName(int stageCnt)
     {
-        return _monsterNames[_spawnCount % _monsterNames.Length];
+        return _monsterNames[stageCnt % _monsterNames.Length];
     }
 }

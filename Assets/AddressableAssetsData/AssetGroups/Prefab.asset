@@ -71,6 +71,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - MainScene
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 42101a0381fffb946a2dd6277fc8b54f
+    m_Address: UI_StageInfo.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MainScene
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: ceee6aff5db9ca84d80d2b82da45dab5, type: 2}
   m_SchemaSet:
