@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "582199123478",
+    "project_id": "beltscroll",
+    "storage_bucket": "beltscroll.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:582199123478:android:230bf6982ed87083035f37",
+        "android_client_info": {
+          "package_name": "com.wjy.beltscroll"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOIdQneyrqMkfjbsZ3x6whYcI7yMY_v9s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
