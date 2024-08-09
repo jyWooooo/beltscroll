@@ -19,6 +19,7 @@ public class UserGUIDManager
                 _userID = Guid.NewGuid();
                 CreateDataFile();
             }
+            Debug.Log($"User GUID: {_userID}");
             _isReadYet = true;
         }
         return _userID;

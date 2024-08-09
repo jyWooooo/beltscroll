@@ -1,27 +1,46 @@
-using Firebase.Database;
-using System.IO;
+using System;
+using System.Collections;
 using UnityEngine;
 
 public class MainScene : SceneBase
 {
-    public override void Start()
-    {
-        base.Start();
-    }
+    [SerializeField] private UI_Loading _uiLoading;
 
     public override void LoadScene()
     {
-        GameManager.ResourceManager.LoadAllAsync<Object>("MainScene", (key, cnt, total) => 
+        ReadFirebaseDB(() =>
+        {
+            LoadResources(() =>
+            {
+                StartGame();
+            });
+        });
+    }
+
+    private void ReadFirebaseDB(Action callback)
+    {
+        _uiLoading.SetMessage("Checking Network Connection");
+        GameManager.FirebaseDBManager.TryRead((result) =>
+        {
+            Debug.Log($"Firebase Database Read Success. Value : {result}");
+            GameManager.StageManager.SetStageCount(result - 1);
+            callback?.Invoke();
+        }, () =>
+        {
+            Debug.Log("Firebase Database Read Fail");
+            callback?.Invoke();
+        });
+    }
+
+    private void LoadResources(Action callback)
+    {
+        _uiLoading.SetMessage("Loading Resources");
+        GameManager.ResourceManager.LoadAllAsync<UnityEngine.Object>("MainScene", (key, cnt, total) =>
         {
             if (cnt == total)
             {
-                Debug.Log("MainScene Resource Load Complete");
-
-                InitializeStage();
-                SpawnPlayer();
-                CreateUI();
-                GameManager.StageManager.MoveNextStage();
-                Debug.Log(GameManager.DataManager.UserID);
+                Debug.Log("MainScene Resources Load Complete");
+                callback?.Invoke();
             }
         });
     }
@@ -43,12 +62,26 @@ public class MainScene : SceneBase
 
     private void CreateUI()
     {
+        Destroy(_uiLoading.gameObject);
         GameManager.UIManager.ShowSceneUI<UI_MainScene>();
+    }
+
+    private void StartGame()
+    {
+        InitializeStage();
+        SpawnPlayer();
+        CreateUI();
+        GameManager.StageManager.MoveNextStage();
     }
 
     public override void UnloadScene()
     {
         GameManager.StageManager.Clear();
         GameManager.MonsterManager.Clear();
+    }
+
+    public void OnApplicationQuit()
+    {
+        GameManager.FirebaseDBManager.Write();
     }
 }

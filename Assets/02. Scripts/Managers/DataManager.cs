@@ -1,25 +1,21 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Firebase.Database;
 
 public class DataManager
 {
     private Dictionary<string, ScriptableObject> _db = new();
-    private DatabaseReference _firebaseDBRef;
     private UserGUIDManager _userGUIDManager = new();
 
     public bool IsDone { get; private set; } = false;
     public Guid UserID => _userGUIDManager.GetUserID();
 
-    public event Action OnDBLoaded;
-
-    public void DBLoad(Action<string, int, int> callback = null)
+    public void Load(Action completed = null)
     {
-        _firebaseDBRef = FirebaseDatabase.DefaultInstance.RootReference;
-
-        callback += LoadCompleteCallback;
-        GameManager.ResourceManager.LoadAllAsync<UnityEngine.Object>("DB", callback);
+        GameManager.ResourceManager.LoadAllAsync<UnityEngine.Object>("DB", (key, cnt, total) =>
+        {
+            CallbackResourceDBLoad(key, cnt, total, completed);
+        });
     }
 
     public T GetData<T>(string key) where T : ScriptableObject
@@ -29,14 +25,15 @@ public class DataManager
         return data as T;
     }
 
-    private void LoadCompleteCallback(string key, int cnt, int total) 
+    private void CallbackResourceDBLoad(string key, int cnt, int total, Action completed) 
     {
         _db.Add(key, GameManager.ResourceManager.GetCache<ScriptableObject>(key));
 
         if (cnt == total)
         {
+            Debug.Log("DataManager DBLoad Complete");
+            completed?.Invoke();
             IsDone = true;
-            OnDBLoaded?.Invoke();
         }
     }
 }
